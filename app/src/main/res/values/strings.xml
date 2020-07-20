@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyMusic</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="emaill">emaill</string>
+    <string name="nombre">Nombre</string>
 </resources>
