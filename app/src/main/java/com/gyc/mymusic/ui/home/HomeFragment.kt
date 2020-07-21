@@ -5,49 +5,65 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gyc.mymusic.MainActivity.Companion.idPlaylist
 import com.gyc.mymusic.R
 import com.gyc.mymusic.adapter.AdapterRecyclerView
+import com.gyc.mymusic.model.ModelRecyclerView
+import com.gyc.mymusic.ui.playlist.PlayListViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
-class HomeFragment : Fragment(),AdapterRecyclerView.OnRecyclerClickListener  {
-    private val vmHome: HomeViewModel by lazy {
-        ViewModelProvider(this@HomeFragment).get(HomeViewModel::class.java)
-    }
+class HomeFragment : Fragment(), AdapterRecyclerView.OnRecyclerClickListener {
 
-    private lateinit var adapterRVCesantias: AdapterRecyclerView
+
+    private lateinit var vmHome: HomeViewModel
+    private lateinit var vmPlayList: PlayListViewModel
+
+    private lateinit var adapterRV: AdapterRecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        vmHome =
+            ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
+        vmPlayList =
+            ViewModelProviders.of(this).get(PlayListViewModel::class.java)
+
+        val root = inflater.inflate(R.layout.fragment_home, container, false)
 
 
         initializeRecyclerView()
         vmHome.getAccount()
-        vmHome.getPlayList()
+        vmPlayList.getPlayList()
 
         observerAccount()
         observerPlaylist()
 
-        root.context.also {
 
-            adapterRVCesantias = AdapterRecyclerView(it, this)
-            val layoutManager  = LinearLayoutManager(context)
-            layoutManager.orientation=LinearLayoutManager.HORIZONTAL
+        root.context.also { rootContex ->
+            adapterRV = AdapterRecyclerView(rootContex, this)
+
             val mRecyclerView = root.findViewById(R.id.rv_play_list_account) as RecyclerView
-            mRecyclerView.layoutManager = layoutManager
-        }
+            mRecyclerView.apply {
+                //setHasFixedSize(true)
+                layoutManager =
+                    LinearLayoutManager(rootContex, LinearLayoutManager.VERTICAL, false)
 
+                adapter = adapterRV
+            }
+        }
 
         return root
     }
@@ -56,37 +72,43 @@ class HomeFragment : Fragment(),AdapterRecyclerView.OnRecyclerClickListener  {
     private fun initializeRecyclerView() {
 
 
-
-
     }
 
     private fun observerPlaylist() {
 
-        vmHome.getPlayList()
-        vmHome.playList.observe(viewLifecycleOwner, Observer {
-            adapterRVCesantias.creteListItems(it)
-            adapterRVCesantias.notifyDataSetChanged()
+        vmPlayList.playList.observe(viewLifecycleOwner, Observer {
+            adapterRV.creteListItems(it)
+            adapterRV.notifyDataSetChanged()
         })
     }
 
     private fun observerAccount() {
 
         vmHome.account.observe(viewLifecycleOwner, Observer {
-            tv_name_account.text= it.name
-            tv_email_account.text= it.email
-            b_followe_account.text = it.followers
+            tv_name_account.text = it.name
+            tv_email_account.text = it.email
+            b_follower_account.text = it.followers
             b_country_account.text = it.country
-
+            b_product_account.text =it.product
 
             Picasso.get()
                 .load(it.images)
-                .resize(200,200)
+                .resize(200, 200)
                 .centerCrop()
-                .into(iv_images_account);
+                .into(iv_images_account).also {
+                    pb_home.isVisible =false
+                }
+
+
+
         })
     }
 
+
     override fun selectItem(item: Any?) {
-        TODO("Not yet implemented")
+        val playlist = item as ModelRecyclerView
+        idPlaylist = playlist.id
+        findNavController().navigate(R.id.action_navigation_home_to_navigation_dashboard)
+
     }
 }

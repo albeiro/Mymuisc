@@ -10,12 +10,12 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_margin="20dp"
         android:padding="20dp"
         android:background="@drawable/radius"
+        android:backgroundTint="@color/white"
         android:foregroundGravity="center_vertical">
 
         <com.mikhaellopez.circularimageview.CircularImageView
@@ -23,6 +23,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             app:civ_border="false"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,18 +41,24 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
+                android:id="@+id/tv_id_play_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+
+            <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="title"
-                android:textColor="@color/blanco"
+                android:textColor="@color/gray"
                 android:text="@{recycler.title}" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="observation"
-                android:textColor="@color/blanco"
+                android:textColor="@color/gray"
                 android:text="@{recycler.description}" />
 
         </LinearLayout>

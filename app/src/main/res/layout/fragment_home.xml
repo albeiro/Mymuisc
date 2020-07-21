@@ -10,93 +10,120 @@
             type="com.gyc.mymusic.model.Account" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.account.MainActivity">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="240dp"
-            android:background="@drawable/background_account"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="match_parent"
+            tools:context=".ui.account.MainActivity">
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@drawable/background_account"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_name_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:gravity="center"
-            android:hint="@string/nombre"
-            android:text="@{account.name}"
-            android:textColor="@color/blanco"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_email_account"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="@string/emaill"
-            android:text="@{account.email}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv_name_account"
-            app:layout_constraintTop_toBottomOf="@+id/tv_name_account" />
-
-        <com.mikhaellopez.circularimageview.CircularImageView
-            android:id="@+id/iv_images_account"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:src="@drawable/ic_launcher_foreground"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_email_account" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_images_account">
-
-            <Button
-                android:id="@+id/b_followe_account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/b_country_account"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            </LinearLayout>
 
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tv_name_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:hint="@string/nombre"
+                android:text="@{account.name}"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_email_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="@string/emaill"
+                android:text="@{account.email}"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tv_name_account"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_account" />
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/iv_images_account"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/ic_launcher_foreground"
+                app:civ_border_width="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_email_account" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_images_account">
+
+                <Button
+                    android:id="@+id/b_follower_account"
+                    style="@style/buttonHome"
+                    android:drawableStart="@drawable/ic_baseline_person_pin_24" />
+
+                <Button
+                    android:id="@+id/b_country_account"
+                    style="@style/buttonHome"
+                    android:drawableStart="@drawable/ic_baseline_my_location_24" />
+
+                <Button
+                    android:id="@+id/b_product_account"
+                    style="@style/buttonHome"
+                    android:drawableStart="@drawable/ic_baseline_beenhere_24" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_play_list_account"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+            </LinearLayout>
 
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_play_list_account"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/radius"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+            <ProgressBar
+                android:id="@+id/pb_home"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

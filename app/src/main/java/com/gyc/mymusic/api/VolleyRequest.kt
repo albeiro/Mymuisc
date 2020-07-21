@@ -74,7 +74,9 @@ class VolleyRequest(context: Context?) {
                     iRespuesta?.error(error)
 
                 }
-                Log.i("JsonRequestError", error.networkResponse.statusCode.toString())
+                var codigo :Int? = error?.networkResponse?.statusCode
+                codigo = codigo ?: 404
+                Log.i("JsonRequestError", "Eror: $codigo")
             }
         ) {
             override fun getHeaders(): MutableMap<String, String> {

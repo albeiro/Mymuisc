@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gyc.mymusic.R
 import com.gyc.mymusic.databinding.PlayListCardBinding
+import com.gyc.mymusic.model.ModelPlayListDetail
 import com.gyc.mymusic.model.ModelRecyclerView
 import com.squareup.picasso.Picasso
 
@@ -45,6 +46,16 @@ class AdapterRecyclerView(
                         .resize(200,200)
                         .centerCrop()
                         .into(binding.civImagesPlayList);
+                }
+                is ModelPlayListDetail -> {
+                    item = objeto as ModelPlayListDetail
+                    clase = ModelRecyclerView(
+                        item.title,
+                        item.description,
+                        item.id,
+                        item.images
+                    )
+
                 }
             }
             binding.recycler = clase

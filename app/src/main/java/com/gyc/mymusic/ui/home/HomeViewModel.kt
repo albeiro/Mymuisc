@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.android.volley.VolleyError
 import com.gyc.mymusic.api.IResponseServer
 import com.gyc.mymusic.api.getAccountApi
+import com.gyc.mymusic.api.getCountryFlagApi
 import com.gyc.mymusic.api.getPlayListApi
 import com.gyc.mymusic.model.Account
 import com.gyc.mymusic.model.ModelRecyclerView
@@ -16,11 +17,11 @@ import org.json.JSONObject
 class HomeViewModel(application: Application) : BaseViewModel(application) {
 
     val account = MutableLiveData<Account>()
-    val playList = MutableLiveData<List<ModelRecyclerView>>()
+    val flag = MutableLiveData<String>()
+
     val error = MutableLiveData<String>()
 
     fun getAccount() {
-
         val callbackGetAccount = object : IResponseServer {
 
             override fun success(response: Any?) {
@@ -36,18 +37,11 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
         getAccountApi(getApplication(), callbackGetAccount)
     }
 
-    fun getPlayList() {
-
-        val callbackGetPlayList = object : IResponseServer {
-            val listItems = ArrayList<ModelRecyclerView>()
+    fun getCountryFlag(country: String) {
+        val getCountryFlag = object : IResponseServer {
 
             override fun success(response: Any?) {
-                val items = JSONObject(response.toString()).getJSONArray("items")
-                for (i in 0 until items.length()) {
-                    listItems.add(ModelRecyclerView(JSONObject(items[i].toString())))
-                }
-
-                playList.value = listItems
+                flag.value = JSONObject(response.toString()).getString("flag")
             }
 
             override fun error(volleyError: VolleyError) {
@@ -56,7 +50,8 @@ class HomeViewModel(application: Application) : BaseViewModel(application) {
 
         }
 
-        getPlayListApi(getApplication(), callbackGetPlayList)
+        getCountryFlagApi(getApplication(), getCountryFlag,country )
     }
+
 
 }

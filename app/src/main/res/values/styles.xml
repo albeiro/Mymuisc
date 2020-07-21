@@ -7,4 +7,17 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="buttonHome">
+        <item name="android:drawableTint">@color/white</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:background">@drawable/radius</item>
+    </style>
+    <style name="textWhite">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>

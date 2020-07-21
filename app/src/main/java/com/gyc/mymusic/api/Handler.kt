@@ -15,11 +15,26 @@ fun headers(): HashMap<String, String> {
         init {
             put(
                 "Authorization",
-                "Bearer BQDUuX8eXopX1hsnYYaEQdQ4MPcw_DYJxX-YBM3fyj6Zzp0zNx9SVlKqf7vuH8auTqtW4JE4DwKiHwVjI0A-1-KmUfUloV9CS0MEdRbaZJ4Gb_gHFCQQbxPnqBF31ohvvU7c5kr6-_xaeX3iFj_QcV14B1SWrHG12AB5HbBT2hf3heNsh6Hypw"
+                "Bearer BQDhBzlwJ0pOrttO5iHphf8ry8L4GcVb695so4qRGAOJFVuKBvFVRZmqGBvGDbWRqQLCkiX_VbVzo9FmFUQ6LDIZB5uio_5PpPiP00IO98VIYYLHTS4X_5NpcT4ESuWcE7cNJOapJemVaT6x8KjQeivuUJ_H4csTdPmlSSrl4KYdCjqeI7wSaA"
             )
         }
     }
 }
+
+fun getCountryFlagApi(
+    context: Context,
+    callback: IResponseServer,
+    country:String
+) {
+    try {
+        val url = "https://restcountries.eu/rest/v2/alpha/$country"
+
+        VolleyRequest.getInstance(context).jsonRequest(url, null, headers(), callback)
+    } catch (e: Exception) {
+        Log.d(TAG, e.message!!)
+    }
+}
+
 
 
 fun getAccountApi(
@@ -41,6 +56,34 @@ fun getPlayListApi(
 ) {
     try {
         val url = HOST.plus("me/playlists")
+
+        VolleyRequest.getInstance(context).jsonRequest(url, null, headers(), callback)
+    } catch (e: Exception) {
+        Log.d(TAG, e.message!!)
+    }
+}
+
+fun getPlayListDetailsApi(
+context: Context,
+callback: IResponseServer,
+idPlaylist:String
+) {
+    try {
+        val url = HOST.plus("playlists/$idPlaylist/tracks")
+
+        VolleyRequest.getInstance(context).jsonRequest(url, null, headers(), callback)
+    } catch (e: Exception) {
+        Log.d(TAG, e.message!!)
+    }
+}
+
+fun getTrackApi(
+    context: Context,
+    callback: IResponseServer,
+    idTarck:String
+) {
+    try {
+        val url = HOST.plus("tracks/$idTarck")
 
         VolleyRequest.getInstance(context).jsonRequest(url, null, headers(), callback)
     } catch (e: Exception) {

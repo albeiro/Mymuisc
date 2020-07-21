@@ -26,6 +26,22 @@ fun jsonFirstLevel(json: JSONObject, valor: String, key: String): String {
         return json.getJSONObject(valor).getString(key)
     }
 }
+fun jsonSecondLevel(
+    json: JSONObject,
+    valor1: String,
+    valor2: String,
+    key: String
+): String {
+    return if (nullValidateJSON(json, valor1)) {
+        ""
+    } else {
+        if (nullValidateJSON(json.getJSONObject(valor1), valor2)) {
+            ""
+        } else {
+            json.getJSONObject(valor1).getJSONObject(valor2).getString(key)
+        }
+    }
+}
 
 fun jsonArray(jsonArray: JSONArray, position: Int, key:String):String{
     val sa = jsonArray[position]
