@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -27,8 +26,9 @@ class HomeFragment : Fragment(), AdapterRecyclerView.OnRecyclerClickListener {
 
     private lateinit var vmHome: HomeViewModel
     private lateinit var vmPlayList: PlayListViewModel
-
     private lateinit var adapterRV: AdapterRecyclerView
+    private var loadPlayList = false
+    private var loadAccount = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -79,6 +79,8 @@ class HomeFragment : Fragment(), AdapterRecyclerView.OnRecyclerClickListener {
         vmPlayList.playList.observe(viewLifecycleOwner, Observer {
             adapterRV.creteListItems(it)
             adapterRV.notifyDataSetChanged()
+            loadPlayList = true
+            hideProgressBar()
         })
     }
 
@@ -95,20 +97,24 @@ class HomeFragment : Fragment(), AdapterRecyclerView.OnRecyclerClickListener {
                 .load(it.images)
                 .resize(200, 200)
                 .centerCrop()
-                .into(iv_images_account).also {
-                    pb_home.isVisible =false
-                }
+                .into(iv_images_account)
 
-
-
+            loadAccount = true
+            hideProgressBar()
         })
     }
 
 
     override fun selectItem(item: Any?) {
         val playlist = item as ModelRecyclerView
-        idPlaylist = playlist.id
+        idPlaylist = playlist
         findNavController().navigate(R.id.action_navigation_home_to_navigation_dashboard)
 
+    }
+
+    private fun hideProgressBar() {
+        if(loadAccount && loadPlayList){
+            pb_home.isVisible = false
+        }
     }
 }

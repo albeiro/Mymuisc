@@ -17,6 +17,7 @@ import org.json.JSONObject
 class PlayListViewModel(application: Application) : BaseViewModel(application) {
 
     val playList = MutableLiveData<List<ModelRecyclerView>>()
+    val playList1 = MutableLiveData<ModelRecyclerView>()
     val playListDetail  = MutableLiveData<List<ModelPlayListDetail>>()
 
     val error = MutableLiveData<String>()
@@ -63,6 +64,6 @@ class PlayListViewModel(application: Application) : BaseViewModel(application) {
 
         }
 
-        getPlayListDetailsApi(getApplication(), callbackGetPlayListDetail,MainActivity.idPlaylist!! )
+        getPlayListDetailsApi(getApplication(), callbackGetPlayListDetail,MainActivity.idPlaylist?.id!! )
     }
 }

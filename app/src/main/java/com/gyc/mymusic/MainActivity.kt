@@ -7,11 +7,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.gyc.mymusic.model.ModelRecyclerView
 
 class MainActivity : AppCompatActivity() {
 
     companion object{
-        var idPlaylist :String? =  null
+        var idPlaylist : ModelRecyclerView? =  null
         var idtrack :String? =  null
     }
     override fun onCreate(savedInstanceState: Bundle?) {

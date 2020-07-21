@@ -20,7 +20,7 @@ class ModelPlayListDetail {
             this.id = jsonFirstLevel(jsonObject,"track","id")
             this.images =jsonArray(JSONArray(jsonFirstLevel(jsonObject,"track","album")),0,"url")
         } catch (e: Exception) {
-            Log.e("ErorAccount", e.message.toString())
+            Log.e("ErorPlayList", e.message.toString())
         }
     }
 

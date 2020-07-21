@@ -5,4 +5,6 @@
     <string name="title_track">Track</string>
     <string name="emaill">emaill</string>
     <string name="nombre">Nombre</string>
+    <string name="title">Tile</string>
+    <string name="by">by</string>
 </resources>

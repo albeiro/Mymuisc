@@ -8,10 +8,10 @@
     android:padding="20dp">
 
     <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/circularImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@color/colorPrimaryDark"
+        android:id="@+id/civ_images_play_list"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:civ_border="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,26 +21,28 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        app:layout_constraintStart_toEndOf="@+id/circularImageView"
+        app:layout_constraintBottom_toTopOf="@+id/rv_tracks_play_list"
+        app:layout_constraintStart_toEndOf="@+id/civ_images_play_list"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tv_title_play_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:hint="Titulo" />
+            tools:hint="@string/title" />
 
         <TextView
+            android:id="@+id/tv_by_play_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:hint="by" />
+            tools:hint="@string/by" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tracks_play_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/civ_images_play_list"
         tools:layout_editor_absoluteX="20dp" />
 
 
