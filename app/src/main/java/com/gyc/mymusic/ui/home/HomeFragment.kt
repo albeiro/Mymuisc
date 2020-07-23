@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gyc.mymusic.MainActivity
 import com.gyc.mymusic.MainActivity.Companion.idPlaylist
 import com.gyc.mymusic.R
 import com.gyc.mymusic.adapter.AdapterRecyclerView
@@ -19,6 +20,7 @@ import com.gyc.mymusic.model.ModelRecyclerView
 import com.gyc.mymusic.ui.playlist.PlayListViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 
 class HomeFragment : Fragment(), AdapterRecyclerView.OnRecyclerClickListener {
@@ -63,7 +65,12 @@ class HomeFragment : Fragment(), AdapterRecyclerView.OnRecyclerClickListener {
 
                 adapter = adapterRV
             }
+
+            root.b_new_play_list.setOnClickListener {
+                vmPlayList.newPlayList(root.et_new_play_list.text.toString())
+            }
         }
+
 
         return root
     }
@@ -87,6 +94,8 @@ class HomeFragment : Fragment(), AdapterRecyclerView.OnRecyclerClickListener {
     private fun observerAccount() {
 
         vmHome.account.observe(viewLifecycleOwner, Observer {
+
+            MainActivity.idUser = it.id
             tv_name_account.text = it.name
             tv_email_account.text = it.email
             b_follower_account.text = it.followers

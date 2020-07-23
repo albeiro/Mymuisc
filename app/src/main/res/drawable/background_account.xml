@@ -10,7 +10,5 @@
             <solid android:color="@color/colorAccent" />
         </shape>
     </item>
-    <item>
-        <shape android:shape="rectangle"/>
-    </item>
+
 </layer-list>

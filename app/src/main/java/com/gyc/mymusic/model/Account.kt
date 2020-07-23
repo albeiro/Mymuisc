@@ -5,20 +5,22 @@ import com.gyc.mymusic.utils.jsonArray
 import com.gyc.mymusic.utils.jsonFirstLevel
 import org.json.JSONObject
 
-class Account {
-    var name: String = "";
-    var email: String = "";
-    var followers: String = "";
-    var images: String = "";
-    var product: String = "";
-    var country: String = "";
+class Account(jsonObject: JSONObject) {
+    var id: String? = ""
+    var name: String? = ""
+    var email: String? = ""
+    var followers: String? = ""
+    var images: String? = ""
+    var product: String? = ""
+    var country: String? = ""
 
-    constructor(jsonObject: JSONObject) {
+    init {
         try {
+            this.id = jsonObject.optString("id")
             this.name = jsonObject.optString("display_name")
             this.email = jsonObject.optString("email")
             this.followers = jsonFirstLevel(jsonObject, "followers", "total")
-            this.images = jsonArray(jsonObject.getJSONArray("images"), 0, "url")
+            this.images = jsonArray(jsonObject)
             this.product = jsonObject.optString("product")
             this.country = jsonObject.optString("country")
         } catch (e: Exception) {
@@ -27,5 +29,5 @@ class Account {
     }
 
 
-    constructor()
+
 }

@@ -1,12 +1,10 @@
 package com.gyc.mymusic.ui.playlist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -17,14 +15,15 @@ import com.gyc.mymusic.MainActivity
 import com.gyc.mymusic.R
 import com.gyc.mymusic.adapter.AdapterRecyclerView
 import com.gyc.mymusic.model.ModelPlayListDetail
+import com.gyc.mymusic.ui.track.TrackViewModel
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_play_list.*
 import kotlinx.android.synthetic.main.fragment_play_list.view.*
 
 class PlayListFragment : Fragment(), AdapterRecyclerView.OnRecyclerClickListener {
 
     private lateinit var vmplayList: PlayListViewModel
+    private lateinit var vmTarck: TrackViewModel
     private lateinit var adapterRV: AdapterRecyclerView
 
 
@@ -35,25 +34,30 @@ class PlayListFragment : Fragment(), AdapterRecyclerView.OnRecyclerClickListener
     ): View? {
         vmplayList =
             ViewModelProviders.of(this).get(PlayListViewModel::class.java)
+        vmTarck =
+            ViewModelProviders.of(this).get(TrackViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_play_list, container, false)
 
-        Log.i("vmplayList.idPlayList", MainActivity.idPlaylist.toString())
+
 
         root.context.also { rootContex ->
             if (MainActivity.idPlaylist != null) {
 
                 vmplayList.getPlayListDetails()
-                val playlist =MainActivity.idPlaylist!!
+                val playlist = MainActivity.idPlaylist!!
 
                 root.tv_title_play_list.text = playlist.title
                 root.tv_by_play_list.text = playlist.description
 
-                Picasso.get()
-                    .load(playlist.images)
-                    .resize(80, 80)
-                    .centerCrop()
-                    .into(root.civ_images_play_list)
+
+                if(!playlist.images.isNullOrEmpty()){
+                    Picasso.get()
+                        .load(playlist.images)
+                        .resize(200, 200)
+                        .centerCrop()
+                        .into(root.civ_images_list_card)
+                }
 
                 observerGetPlayListDetails()
 
@@ -65,6 +69,10 @@ class PlayListFragment : Fragment(), AdapterRecyclerView.OnRecyclerClickListener
                     layoutManager =
                         LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                     adapter = adapterRV
+                }
+
+                root.b_search_track_play_list.setOnClickListener {
+                    vmplayList.searchTrack(root.et_search_track_play_list.text.toString())
                 }
 
             } else {
@@ -87,8 +95,7 @@ class PlayListFragment : Fragment(), AdapterRecyclerView.OnRecyclerClickListener
 
     override fun selectItem(item: Any?) {
         val track = item as ModelPlayListDetail
-        MainActivity.idtrack = track.id
+        MainActivity.idtrack = track
         findNavController().navigate(R.id.action_navigation_dashboard_to_navigation_notifications)
-
     }
 }

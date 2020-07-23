@@ -8,7 +8,7 @@
     android:padding="20dp">
 
     <com.mikhaellopez.circularimageview.CircularImageView
-        android:id="@+id/civ_images_play_list"
+        android:id="@+id/civ_images_list_card"
         android:layout_width="80dp"
         android:layout_height="80dp"
         app:civ_border="false"
@@ -16,13 +16,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout4"
+        android:id="@+id/ll_info_play_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingLeft="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/rv_tracks_play_list"
-        app:layout_constraintStart_toEndOf="@+id/civ_images_play_list"
+        app:layout_constraintBottom_toTopOf="@+id/ll_new_play_list"
+        app:layout_constraintStart_toEndOf="@+id/civ_images_list_card"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
@@ -38,11 +38,39 @@
             tools:hint="@string/by" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_new_play_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/civ_images_list_card">
+
+        <EditText
+            android:id="@+id/et_search_track_play_list"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="Name track" />
+
+        <Button
+            android:id="@+id/b_search_track_play_list"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/radius"
+            android:drawableTop="@drawable/ic_baseline_search_24"
+            android:drawableTint="@color/white" />
+
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tracks_play_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/civ_images_play_list"
+        app:layout_constraintTop_toBottomOf="@+id/ll_new_play_list"
         tools:layout_editor_absoluteX="20dp" />
 
 

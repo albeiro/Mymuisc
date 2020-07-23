@@ -36,25 +36,35 @@ class AdapterRecyclerView(
                 is ModelRecyclerView -> {
                     item = objeto as ModelRecyclerView
                     clase = ModelRecyclerView(
-                        item.title,
-                        item.description,
-                        item.id,
-                        item.images
+                        item.title!!,
+                        item.description!!,
+                        item.id!!,
+                        item.images!!
                     )
-                    Picasso.get()
-                        .load(item.images)
-                        .resize(200,200)
-                        .centerCrop()
-                        .into(binding.civImagesPlayList);
+                    if (!item.images.isNullOrEmpty()) {
+                        Picasso.get()
+                            .load(item.images)
+                            .resize(200, 200)
+                            .centerCrop()
+                            .into(binding.civImagesListCard)
+                    }
                 }
                 is ModelPlayListDetail -> {
                     item = objeto as ModelPlayListDetail
                     clase = ModelRecyclerView(
-                        item.title,
-                        item.description,
-                        item.id,
-                        item.images
+                        item.title!!,
+                        item.description!!,
+                        item.id!!,
+                        item.images!!
                     )
+                    if (!item.images.isNullOrEmpty()) {
+                        Picasso.get()
+                            .load(item.images)
+                            .resize(100, 200)
+                            .centerCrop()
+                            .into(binding.civImagesListCard)
+                    }
+
 
                 }
             }
@@ -74,9 +84,11 @@ class AdapterRecyclerView(
     interface OnRecyclerClickListener {
         fun selectItem(item: Any?)
     }
-    fun creteListItems(list:Any){
-        listItems= list as ArrayList<Any>
+
+    fun creteListItems(list: Any) {
+        listItems = list as ArrayList<Any>
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): viewHolderRv {
         val inflater = LayoutInflater.from(context)
         val binding: PlayListCardBinding = DataBindingUtil.inflate(
@@ -97,7 +109,6 @@ class AdapterRecyclerView(
         val estudio = listItems[position]
         holder.addItem(estudio, position)
     }
-
 
 
 }

@@ -36,10 +36,10 @@ class VolleyRequest(context: Context?) {
     ) {
         val stringRequest = object : StringRequest(Method.GET, url,
             Response.Listener<String> { respuesta ->
-                Log.i("StringRequestSucces", parametros.toString())
+
                 iRespuesta?.success(respuesta)
             }, Response.ErrorListener { error ->
-                Log.i("StringRequestErrt", parametros.toString())
+
                 iRespuesta?.error(error)
 
             }) {
@@ -62,10 +62,9 @@ class VolleyRequest(context: Context?) {
         iRespuesta: IResponseServer?
     ) {
         Log.i("JsonRequestURl", url)
-        Log.i("he", headers.toString())
+
         val jsonObjReq = object : JsonObjectRequest(url, parametros,
             Response.Listener { response ->
-                Log.i("JsonRequestSucces", response.toString())
 
                 iRespuesta?.success(response)
             },
@@ -92,7 +91,6 @@ class VolleyRequest(context: Context?) {
             DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
             DefaultRetryPolicy.DEFAULT_BACKOFF_MULT
         )
-        Log.i("jsonObjReq", "s $jsonObjReq")
         this.queue.add(jsonObjReq)
 
     }

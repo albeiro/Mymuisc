@@ -1,6 +1,5 @@
 package com.gyc.mymusic.utils
 
-import org.json.JSONArray
 import org.json.JSONObject
 
 private fun nullValidate(valor: String): Boolean {
@@ -26,6 +25,7 @@ fun jsonFirstLevel(json: JSONObject, valor: String, key: String): String {
         return json.getJSONObject(valor).getString(key)
     }
 }
+
 fun jsonSecondLevel(
     json: JSONObject,
     valor1: String,
@@ -43,7 +43,40 @@ fun jsonSecondLevel(
     }
 }
 
-fun jsonArray(jsonArray: JSONArray, position: Int, key:String):String{
-    val sa = jsonArray[position]
-    return JSONObject(sa.toString()).optString(key)
+fun jsonArray(json: JSONObject  ): String? {
+    val jsonArray= json.optJSONArray("images")
+    if(jsonArray!=null){
+        val first = jsonArray[0]
+        return JSONObject(first.toString()).optString("url")
+    }else{
+        return null
+    }
+}
+
+fun jsonArtist(json: JSONObject  ): String? {
+    val jsonArray= json.optJSONArray("images")
+    if(jsonArray!=null){
+        val first = jsonArray[0]
+        return JSONObject(first.toString()).optString("url")
+    }else{
+        return null
+    }
+}
+
+fun jsonImagesPlayList(json: JSONObject): String {
+    val images =
+        json.getJSONObject("track").getJSONObject("album").getJSONArray("images")[0]
+    return JSONObject(images.toString()).optString("url")
+}
+
+fun jsonArtistPlayList(json: JSONObject): String {
+    val artists =
+        json.getJSONObject("track").getJSONObject("album").getJSONArray("artists")[0]
+    return JSONObject(artists.toString()).optString("name")
+}
+
+fun jsonArtistSearchTrack(json: JSONObject): String {
+    val artists =
+        json.getJSONObject("album").getJSONArray("artists")[0]
+    return JSONObject(artists.toString()).optString("name")
 }
